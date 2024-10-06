@@ -1,0 +1,26 @@
+{
+  "name": "jellyfish-ui",
+  "scripts": {
+    "sass": "sass scss:dist",
+    "sass-watch": "sass --watch scss:dist",
+    "webpack": "webpack --progress",
+    "build": "bun run sass && bun run webpack",
+    "run": "bun run build && zig build run"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "monaco-editor": "^0.52.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
