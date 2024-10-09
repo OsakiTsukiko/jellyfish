@@ -57,16 +57,31 @@ pub fn clean(allocator: std.mem.Allocator) void {
 
 // return must be freed
 fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD ERROR RETURN
-    exe_directory.?.makeDir(BUILD_DIRECTORY) catch {
-        // TODO: HANDLE PATH ALREADY EXISTS + OTHER
-        unreachable;
+    exe_directory.?.makeDir(BUILD_DIRECTORY) catch |err| switch (err) {
+        error.PathAlreadyExists => {
+            std.debug.print("PATH ALREADY EXISTS\n", .{});
+        },
+        else => {
+            unreachable;
+            // TODO: PANIC OR SUM
+        },
     };
 
     const build_dir = exe_directory.?.openDir(BUILD_DIRECTORY, .{}) catch unreachable; // TODO: maybe handle?
-    const build_file = build_dir.createFile(BUILD_FILE, .{ .read = true }) catch {
-        // TODO: HANDLE ERRORS?
-        unreachable;
+    const build_file = build_dir.createFile(BUILD_FILE, .{ .read = true }) catch |err| switch (err) {
+        error.PathAlreadyExists => pae_f: {
+            const file = build_dir.openFile(BUILD_FILE, .{}) catch {
+                unreachable;
+                // TODO: HANDLE ERROR
+            };
+            break :pae_f file;
+        },
+        else => {
+            unreachable;
+            // TODO: HANDLE ERROR
+        },
     };
+
     _ = build_file.writeAll(code) catch unreachable; // TODO: maybe handle error?
     build_file.close();
 
@@ -79,17 +94,29 @@ fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD E
 }
 
 fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []const u8) void {
-    const run = std.process.Child.run(.{
-        .allocator = allocator,
-        .argv = &[_][]const u8{
-            comp_path,
-            "run",
-            file_path,
+    switch (builtin.os.tag) {
+        .macos, .freebsd, .netbsd, .dragonfly, .openbsd => {
+            // TODO: SUPPORT MACOS
+            unreachable;
         },
-    }) catch undefined; // TODO: handle errors??
-    std.debug.print("STDOUT: {s}\n", .{run.stdout});
-    std.debug.print("STDERR: {s}\n", .{run.stderr});
-    
+        .linux => {
+            const run = std.process.Child.run(.{
+                .allocator = allocator,
+                .argv = &[_][]const u8{
+                    comp_path,
+                    "run",
+                    file_path,
+                },
+            }) catch undefined; // TODO: handle errors??
+            std.debug.print("STDOUT: {s}\n", .{run.stdout});
+            std.debug.print("STDERR: {s}\n", .{run.stderr});            
+        },
+        .windows => {
+            // TODO: SUPPORT WINDOWS
+            unreachable;
+        },  
+        else => @compileError("Unsupported OS"),
+    }
 }
 
 fn cleanZig() void {
