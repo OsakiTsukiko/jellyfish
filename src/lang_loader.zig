@@ -156,6 +156,10 @@ pub fn loadZig(allocator: std.mem.Allocator) void {
 }
 
 pub fn compileAndRun(event: webui.Event) void {
+    compile(event);
+}
+
+pub fn compile(event: webui.Event) void {
     switch (current_lang.?) {
         .C => {
 
@@ -164,7 +168,52 @@ pub fn compileAndRun(event: webui.Event) void {
 
         },
         .ZIG => {
+            const filename = "source.zig";
+            const dir_name = "temp_build";
+
             std.debug.print("{s}\n{s}\n", .{compiler_path.?, event.getString()});
+            
+            fs.cwd().makeDir(
+                "temp_build"
+            ) catch {
+
+            };
+
+            const dir = fs.cwd().openDir(
+                dir_name, 
+                .{}
+            ) catch unreachable;
+
+            const file = dir.createFile(
+                filename,
+                .{ .read = true }
+            ) catch unreachable;
+
+            file.writeAll(event.getString()) catch unreachable; // TODO: HANDLE THIS
+            file.close();
+
+            const path = dir.realpathAlloc(local_allocator.?, filename) catch unreachable;
+            defer local_allocator.?.free(path);
+            std.debug.print("{s}\n", .{path});
+
+            compileZig(path);
+            cleanUP(dir_name);
         },
     }
+}
+
+pub fn cleanUP(dir: []const u8) void {
+    fs.cwd().deleteTree(dir) catch unreachable;
+}
+
+pub fn compileZig(path: []const u8) void {
+    const run = std.process.Child.run(.{
+        .allocator = local_allocator.?,
+        .argv = &[_][]const u8{
+            compiler_path.?,
+            "build-exe",
+            path,
+        },
+    }) catch undefined;
+    std.debug.print("{s}\n", .{run.stdout});
 }
