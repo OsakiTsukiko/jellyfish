@@ -1,18 +1,11 @@
 const std = @import("std");
 const fs = std.fs;
-const builtin = @import("builtin");
 
-const webui = @import("webui");
+
 
 pub var compiler_path: ?[]u8 = null;
 pub var current_lang: ?ProgLang = null;
 var local_allocator: ?std.mem.Allocator = null;
-
-pub const ProgLang = enum(c_int) {
-    C = 0,
-    CPP = 1,
-    ZIG = 2,
-};
 
 pub fn init(allocator: std.mem.Allocator) void {
     local_allocator = allocator;
