@@ -16,6 +16,8 @@ window.onload = async () => {
     let compile_and_run_button = document.getElementById("compile-and-run-button")!;
     compile_and_run_button.onclick = () => {
         let value = editor.getValue();
+        // @ts-ignore WEBUI
+        runZig(value);
     }
     let compile_button = document.getElementById("compile-button")!;
     let run_button = document.getElementById("run-button")!;
