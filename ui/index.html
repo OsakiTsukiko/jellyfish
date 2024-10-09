@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jellyfish</title>
+    <script src="/webui.js"></script>
     <script type="module" src="./dist/app.bundle.js"></script>
     <link rel="stylesheet" href="./dist/style.css">
 </head>
@@ -14,11 +15,19 @@
 
         </div>
         <div class="button-container">
-            <div class="button" id="restart-button" title="Restart"><i class="fa-solid fa-snowman"></i></div>
-            <div class="multi-button-container">
-              <div class="button" id="compile-and-run-button" title="Compile & Run"><i class="fa-solid fa-cake-candles"></i></div>
-              <div class="button hidden" id="compile-button" title="Compile"><i class="fa-solid fa-candy-cane"></i></div>
-              <div class="button hidden" id="run-button" title="Run"><i class="fa-solid fa-ice-cream"></i></div>
+            <!-- <div class="button" id="restart-button" title="Restart"><i class="fa-solid fa-snowman"></i></div> -->
+            <div class="top">
+                <div class="multi-button-container">
+                    <div class="button" id="compile-and-run-button" title="Compile & Run"><i class="fa-solid fa-cake-candles"></i></div>
+                    <div class="button hidden" id="compile-button" title="Compile"><i class="fa-solid fa-candy-cane"></i></div>
+                    <div class="button hidden" id="run-button" title="Run"><i class="fa-solid fa-ice-cream"></i></div>
+                </div>
+            </div>
+            <div class="middle">
+
+            </div>
+            <div class="bottom">
+                <div class="button" id="language" title="Language"><i class="fa-solid fa-dragon"></i></div>
             </div>
         </div>
     </div>

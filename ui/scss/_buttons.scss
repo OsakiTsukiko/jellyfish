@@ -6,8 +6,28 @@
     background: var(--background-darker);
     display: flex;
     flex-direction: column;
-    padding: 5px;
-    gap: 5px;
+
+    .top, .middle, .bottom {
+        width: 100%;
+        flex: 1;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .top {
+        justify-content: start;
+    }
+
+    .middle {
+        justify-content: center;
+    }
+
+    .bottom {
+        justify-content: end;
+    }
 
     .button {
         width: 35px;

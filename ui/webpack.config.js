@@ -1,4 +1,5 @@
 const path = require('path');
+const { cache } = require('webpack');
 
 module.exports = {
 	mode: 'development',
@@ -34,5 +35,9 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
+	},
+	cache: {
+		type: 'filesystem',
+		allowCollectingMemory: true,
 	},
 };
