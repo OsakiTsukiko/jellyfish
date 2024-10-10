@@ -3,7 +3,9 @@
   <p>🪼 A <b>one-source</b> zig <b>IDE</b> targeted towards algorithmics. 🪼</p>
 </div>
 
-![image](https://github.com/user-attachments/assets/b411fa3f-367d-4d5e-b290-094b77f4e885)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b411fa3f-367d-4d5e-b290-094b77f4e885" width="100%">
+</div>
 
 # 📖 About
 This is mainly a project to further develop my skills in `zig` and `web technologies` and try out `webui`. 
@@ -49,3 +51,7 @@ SOON
   - [X] Linux
   - [ ] Windows
   - [ ] MacOS
+
+# GALLERY
+
+<img src="https://github.com/user-attachments/assets/32f7ae6e-060b-4f28-9583-69b185902de5" width="100%">
