@@ -1,5 +1,6 @@
 const std = @import("std");
 const fs = std.fs;
+const process = std.process;
 const builtin = @import("builtin");
 
 const webui = @import("webui");
@@ -100,16 +101,47 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
             unreachable;
         },
         .linux => {
-            const run = std.process.Child.run(.{
-                .allocator = allocator,
-                .argv = &[_][]const u8{
-                    comp_path,
-                    "run",
-                    file_path,
+            // use gnome terminal
+            // gnome-terminal -- bash -c "command; read -p 'Press Enter to close...'"
+            // update: gnome-terminal exits before actually executing anything, thus
+            // we can not detect when to remove the files thus using suckless st for
+            // now. (could also bundle st as it is under mit)
+
+            // const command = std.fmt.bufPrintZ(buf: []u8, comptime fmt: []const u8, args: anytype)
+            const command = std.fmt.allocPrintZ(
+                allocator, 
+                "({s} run {s};read -p 'Press [ENTER] to close...')",
+                .{comp_path, file_path}
+            ) catch unreachable;
+            defer allocator.free(command);
+
+            var proc = process.Child.init(
+                &[_][]const u8{
+                    "st",
+                    "-e",
+                    "bash",
+                    "-c",
+                    command,
                 },
-            }) catch undefined; // TODO: handle errors??
-            std.debug.print("STDOUT: {s}\n", .{run.stdout});
-            std.debug.print("STDERR: {s}\n", .{run.stderr});            
+                allocator,
+            );
+
+            proc.spawn() catch unreachable; // TODO: HANDLE ERR?
+            _ = proc.wait() catch unreachable;
+            std.debug.print("TERMINAL EXITED (PROBABLY)\n", .{});
+
+            // const run = process.Child.run(.{
+            //     .allocator = allocator,
+            //     .argv = &[_][]const u8{
+            //         "gnome-terminal",
+            //         "--", // Ensure gnome-terminal waits for the command to finish
+            //         "bash",
+            //         "-c",   // '-i' for interactive, '-c' for running command
+            //         command,
+            //     },
+            // }) catch undefined; // TODO: handle errors
+            // _ = run;
+
         },
         .windows => {
             // TODO: SUPPORT WINDOWS
