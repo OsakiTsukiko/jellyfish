@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Jellyfish</h1>
-  <p>🪼 A <b>one-source</b> zig <b>IDE</b> targeted towards algorithmics. 🪼</p>
+  <p>🪼 A(n?) <b>one-source</b> zig <b>IDE</b> targeted towards algorithmics. 🪼</p>
 </div>
 
 <div align="center">
