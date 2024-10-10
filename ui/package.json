@@ -5,7 +5,8 @@
     "sass-watch": "sass --watch scss:dist",
     "webpack": "webpack --progress",
     "build": "bun run sass && bun run webpack",
-    "run": "bun run build && zig build run"
+    "run": "bun run build && zig build run",
+    "add-zig-linux": "bun run scripts/load_zig_linux.js"
   },
   "devDependencies": {
     "@types/bun": "latest",
