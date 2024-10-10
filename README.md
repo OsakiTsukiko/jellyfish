@@ -36,3 +36,16 @@ SOON
 
 ## 🍏 MacOS
 SOON  
+
+# 🗺️ TODO:
+- [ ] Monaco Editor
+  - [X] `ZIG` highlighting
+  - [ ] More Themes
+- [ ] Multiplayer
+- [ ] Zig
+  - [X] Run
+  - [ ] Compile (and download?)
+- [ ] Cross Platform
+  - [X] Linux
+  - [ ] Windows
+  - [ ] MacOS
