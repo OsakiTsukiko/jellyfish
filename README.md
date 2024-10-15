@@ -47,6 +47,7 @@ SOON
 - [ ] Zig
   - [X] Run
   - [ ] Compile (and download?)
+  - [ ] Pass arguments
 - [ ] Cross Platform
   - [X] Linux
   - [ ] Windows
