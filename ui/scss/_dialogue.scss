@@ -4,6 +4,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.3); /* 50% opacity */
     backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     z-index: 1000;
     display: flex;
     align-items: center;
