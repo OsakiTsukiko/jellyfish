@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body>
+    <div class="dialogue hidden" id="comp-arg-dialogue">
+        <div class="dialogue-window">
+            <div class="title">Compiler Arguments</div>
+            <div class="content compiler-arguments">
+                <input type="text" placeholder="-lc -lraylib" id="cad-inp">
+                <button id="cad-btn">OK</button>
+            </div>
+        </div>
+    </div>
 
     <div class="main">
         <div class="editor" id="editor">
@@ -18,10 +27,10 @@
             <!-- <div class="button" id="restart-button" title="Restart"><i class="fa-solid fa-snowman"></i></div> -->
             <div class="top">
                 <div class="multi-button-container">
-                    <div class="button" id="compile-and-run-button" title="Compile & Run"><i class="fa-solid fa-cake-candles"></i></div>
-                    <div class="button hidden" id="compile-button" title="Compile"><i class="fa-solid fa-candy-cane"></i></div>
-                    <div class="button hidden" id="run-button" title="Run"><i class="fa-solid fa-ice-cream"></i></div>
+                    <div class="button" id="run-button" title="Run"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="button hidden" id="build-button" title="Build"><i class="fa-solid fa-wheat-awn"></i></div>
                 </div>
+                <div class="button" id="comp-arguments" title="Compile Arguments"><i class="fa-solid fa-shrimp"></i></div>
             </div>
             <div class="middle">
 
