@@ -47,7 +47,7 @@ SOON
 - [ ] Zig
   - [X] Run
   - [ ] Compile (and download?)
-  - [ ] Pass arguments
+  - [X] Pass arguments
   - [ ] Custom zig arguments
   - [ ] LIB PATH
   - [ ] ?testing
