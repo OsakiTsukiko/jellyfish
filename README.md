@@ -58,8 +58,4 @@ SOON
 - [ ] Quality Of Life Impv.
   - [ ] Disable CTRL + S 
 
-# 🪼 GALLERY
-
-<img src="https://github.com/user-attachments/assets/32f7ae6e-060b-4f28-9583-69b185902de5" width="100%">
-<img src="https://github.com/user-attachments/assets/02675591-3093-4f47-8f72-f442b044c723" width="100%">
-<!-- TODO: MOVE THIS IN A SEPARATE README FILE -->
+# [🪼 GALLERY](https://github.com/OsakiTsukiko/jellyfish/blob/main/GALLERY.md)
