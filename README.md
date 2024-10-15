@@ -50,6 +50,7 @@ SOON
   - [ ] Pass arguments
   - [ ] Custom zig arguments
   - [ ] LIB PATH
+  - [ ] ?testing
 - [ ] Cross Platform
   - [X] Linux
   - [ ] Windows
