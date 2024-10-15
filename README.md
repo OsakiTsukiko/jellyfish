@@ -48,11 +48,17 @@ SOON
   - [X] Run
   - [ ] Compile (and download?)
   - [ ] Pass arguments
+  - [ ] Custom zig arguments
+  - [ ] LIB PATH
 - [ ] Cross Platform
   - [X] Linux
   - [ ] Windows
   - [ ] MacOS
+- [ ] Quality Of Life Impv.
+  - [ ] Disable CTRL + S 
 
-# GALLERY
+# 🪼 GALLERY
 
 <img src="https://github.com/user-attachments/assets/32f7ae6e-060b-4f28-9583-69b185902de5" width="100%">
+<img src="https://github.com/user-attachments/assets/02675591-3093-4f47-8f72-f442b044c723" width="100%">
+
