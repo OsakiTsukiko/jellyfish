@@ -129,19 +129,6 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
             proc.spawn() catch unreachable; // TODO: HANDLE ERR?
             _ = proc.wait() catch unreachable;
             std.debug.print("TERMINAL EXITED (PROBABLY)\n", .{});
-
-            // const run = process.Child.run(.{
-            //     .allocator = allocator,
-            //     .argv = &[_][]const u8{
-            //         "gnome-terminal",
-            //         "--", // Ensure gnome-terminal waits for the command to finish
-            //         "bash",
-            //         "-c",   // '-i' for interactive, '-c' for running command
-            //         command,
-            //     },
-            // }) catch undefined; // TODO: handle errors
-            // _ = run;
-
         },
         .windows => {
             // TODO: SUPPORT WINDOWS
