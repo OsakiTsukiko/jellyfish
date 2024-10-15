@@ -1,8 +1,8 @@
 # 🪼 GALLERY
-### v0.0.0
+### First look at running program in Terminal (st from suckless)
 <img src="https://github.com/user-attachments/assets/32f7ae6e-060b-4f28-9583-69b185902de5" width="100%">
 
-### First look at running program in Terminal (st from suckless)
+### Running raylib example with minimal source tweaks (execution command wrapper for lib path)
 <img src="https://github.com/user-attachments/assets/02675591-3093-4f47-8f72-f442b044c723" width="100%">
 
 ### Compiler Arguments
