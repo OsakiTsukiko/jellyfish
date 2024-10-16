@@ -4,7 +4,7 @@ import { createHighlighter } from 'shiki'
 
 import { MultiButton } from './multi_button';
 
-import { config } from './config';
+import { DEFAULT_ZIG, setConfig } from './config';
 import { init } from './initialization';
 
 var editor: monaco.editor.IStandaloneCodeEditor = undefined;
@@ -20,6 +20,12 @@ window.onload = async () => {
         if (webui.isConnected()) {
             clearInterval(intv);
             // WEBUI LOADED
+            // @ts-ignore
+            loadConfig("config.jlf").then((result) => {
+                if (result != "") {
+                    setConfig(result);
+                } 
+            });
         }
     }, 250);
 
@@ -36,7 +42,7 @@ window.onload = async () => {
     shikiToMonaco(highlighter, monaco);
     
     editor = monaco.editor.create(document.getElementById('editor')!, {
-        value: config.defaultZig,
+        value: DEFAULT_ZIG,
         language: 'zig',
         theme: 'dark-plus',
         automaticLayout: true,

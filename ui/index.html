@@ -19,6 +19,16 @@
         </div>
     </div>
 
+    <div class="dialogue hidden" id="pre-run-wrapper-dialogue">
+        <div class="dialogue-window">
+            <div class="title">Pre Run Wrapper</div>
+            <div class="content pre-run-wrapper">
+                <input type="text" placeholder="LD_LIBRARY_PATH=/usr/local/lib" id="prw-inp">
+                <button id="prw-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
     <div class="main">
         <div class="editor" id="editor">
 
@@ -30,7 +40,11 @@
                     <div class="button" id="run-button" title="Run"><i class="fa-solid fa-seedling"></i></div>
                     <div class="button hidden" id="build-button" title="Build"><i class="fa-solid fa-wheat-awn"></i></div>
                 </div>
-                <div class="button" id="comp-arguments" title="Compile Arguments"><i class="fa-solid fa-shrimp"></i></div>
+                <div class="multi-button-container">
+                    <div class="button" id="comp-arguments" title="Compile Arguments"><i class="fa-solid fa-shrimp"></i></div>
+                    <div class="button hidden" id="pre-run-wrapper" title="Pre Run Wrapper"><i class="fa-solid fa-otter"></i></div>
+                </div>
+                
             </div>
             <div class="middle">
 

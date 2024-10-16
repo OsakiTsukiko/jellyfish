@@ -94,7 +94,7 @@ fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD E
     return file_path;
 }
 
-fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []const u8, comp_arg: []const u8) void {
+fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []const u8, comp_arg: []const u8, pre_run_wrapper: []const u8) void {
     switch (builtin.os.tag) {
         .macos, .freebsd, .netbsd, .dragonfly, .openbsd => {
             // TODO: SUPPORT MACOS
@@ -110,8 +110,8 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
             // const command = std.fmt.bufPrintZ(buf: []u8, comptime fmt: []const u8, args: anytype)
             const command = std.fmt.allocPrintZ(
                 allocator, 
-                "({s} run {s} {s};read -p 'Press [ENTER] to close...')",
-                .{comp_path, file_path, comp_arg}
+                "({s} {s} run {s} {s};read -p 'Press [ENTER] to close...')",
+                .{pre_run_wrapper, comp_path, file_path, comp_arg}
             ) catch unreachable;
             defer allocator.free(command);
 
@@ -149,9 +149,10 @@ pub fn runZigWEB(event: webui.Event) void {
     const allocator = local_allocator.?;
     const code = event.getStringAt(0);
     const comp_arg = event.getStringAt(1);
+    const pre_run_wrapper = event.getStringAt(2);
 
     const file_path = loadZig(allocator, code);
     defer allocator.free(file_path);
-    runZig(allocator, compiler_path.?, file_path, comp_arg);
+    runZig(allocator, compiler_path.?, file_path, comp_arg, pre_run_wrapper);
     cleanZig();
 }
