@@ -5,7 +5,7 @@ const builtin = @import("builtin");
 
 const webui = @import("webui");
 
-var exe_directory: ?fs.Dir = null;
+var exe_directory: fs.Dir = undefined;
 
 const ZIG_PATH_LINUX = "zig/linux";
 const ZIG_PATH_WINDOWS = "zig/windows";
@@ -14,9 +14,10 @@ const ZIG_PATH_MACOS = "zig/macos";
 const BUILD_DIRECTORY= "temp_build";
 const BUILD_FILE = "main.zig";
 
-var local_allocator: ?std.mem.Allocator = null;
-var compiler_dir: ?fs.Dir = null;
-var compiler_path: ?[]const u8 = null;
+var local_allocator: std.mem.Allocator = undefined;
+var compiler_dir: fs.Dir = undefined;
+var compiler_path: []const u8 = undefined; 
+// TODO: check if this needs to be ?[]const u8
 
 pub fn setup(allocator: std.mem.Allocator) void {
     local_allocator = allocator;
@@ -41,7 +42,7 @@ pub fn setup(allocator: std.mem.Allocator) void {
                 unreachable;
             };
             compiler_dir = comp_dir;
-            const comp_path = compiler_dir.?.realpathAlloc(allocator, "zig") catch unreachable;
+            const comp_path = compiler_dir.realpathAlloc(allocator, "zig") catch unreachable;
             compiler_path = comp_path;
         },
         .windows => {
@@ -53,12 +54,12 @@ pub fn setup(allocator: std.mem.Allocator) void {
 }
 
 pub fn clean(allocator: std.mem.Allocator) void {
-    if (compiler_path) |comp_path| allocator.free(comp_path);
+    allocator.free(compiler_path);
 } 
 
 // return must be freed
 fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD ERROR RETURN
-    exe_directory.?.makeDir(BUILD_DIRECTORY) catch |err| switch (err) {
+    exe_directory.makeDir(BUILD_DIRECTORY) catch |err| switch (err) {
         error.PathAlreadyExists => {
             std.debug.print("PATH ALREADY EXISTS\n", .{});
         },
@@ -68,7 +69,7 @@ fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD E
         },
     };
 
-    const build_dir = exe_directory.?.openDir(BUILD_DIRECTORY, .{}) catch unreachable; // TODO: maybe handle?
+    const build_dir = exe_directory.openDir(BUILD_DIRECTORY, .{}) catch unreachable; // TODO: maybe handle?
     const build_file = build_dir.createFile(BUILD_FILE, .{ .read = true }) catch |err| switch (err) {
         error.PathAlreadyExists => pae_f: {
             const file = build_dir.openFile(BUILD_FILE, .{}) catch {
@@ -139,20 +140,20 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
 }
 
 fn cleanZig() void {
-    exe_directory.?.deleteTree(BUILD_DIRECTORY) catch {
+    exe_directory.deleteTree(BUILD_DIRECTORY) catch {
         // TODO: HANDLE PATH ALREADY EXISTS + OTHER
         unreachable;
     };
 }
 
 pub fn runZigWEB(event: webui.Event) void {
-    const allocator = local_allocator.?;
+    const allocator = local_allocator;
     const code = event.getStringAt(0);
     const comp_arg = event.getStringAt(1);
     const pre_run_wrapper = event.getStringAt(2);
 
     const file_path = loadZig(allocator, code);
     defer allocator.free(file_path);
-    runZig(allocator, compiler_path.?, file_path, comp_arg, pre_run_wrapper);
+    runZig(allocator, compiler_path, file_path, comp_arg, pre_run_wrapper);
     cleanZig();
 }

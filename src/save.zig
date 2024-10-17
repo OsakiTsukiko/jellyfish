@@ -3,7 +3,7 @@ const fs = std.fs;
 
 const webui = @import("webui");
 
-var local_allocator: ?std.mem.Allocator = undefined;
+var local_allocator: std.mem.Allocator = undefined;
 
 pub fn setup(allocator: std.mem.Allocator) void {
     local_allocator = allocator;
@@ -51,7 +51,7 @@ pub fn loadData(allocator: std.mem.Allocator, filename: []const u8) ?[]u8 {
 }
 
 pub fn loadConfigWEB(e: webui.Event) void {
-    const allocator = local_allocator.?;
+    const allocator = local_allocator;
     const filename = e.getStringAt(0);
     const data = loadData(allocator, filename);
     if (data) |d| {
@@ -67,7 +67,7 @@ pub fn loadConfigWEB(e: webui.Event) void {
 }
 
 pub fn saveConfigWEB(e: webui.Event) void {
-    const allocator = local_allocator.?;
+    const allocator = local_allocator;
     const filename = e.getStringAt(0);
     const data = e.getStringAt(1);
 
