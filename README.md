@@ -49,7 +49,7 @@ SOON
   - [ ] Compile (and download?)
   - [X] Compiler arguments
   - [ ] Custom zig arguments
-  - [ ] LIB PATH
+  - [X] Pre command wrapper
   - [ ] ?testing
 - [ ] Cross Platform
   - [X] Linux
