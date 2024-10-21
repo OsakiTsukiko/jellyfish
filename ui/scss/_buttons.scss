@@ -59,7 +59,8 @@
         width: fit-content;
         height: fit-content;
         gap: 5px;
-        border-radius: 10px;
+        border-radius: 5px;
         background: var(--background-semidark);
+        border: 1px solid var(--button-color);
     }
 }

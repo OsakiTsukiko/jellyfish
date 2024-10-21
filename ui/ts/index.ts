@@ -6,6 +6,7 @@ import { MultiButton } from './multi_button';
 
 import { DEFAULT_ZIG, setConfig } from './config';
 import { init } from './initialization';
+import { Dialogue } from './dialogue';
 
 var editor: monaco.editor.IStandaloneCodeEditor = undefined;
 export function getEditor(): monaco.editor.IStandaloneCodeEditor {
@@ -47,4 +48,6 @@ window.onload = async () => {
         theme: 'dark-plus',
         automaticLayout: true,
     });
+
+    Dialogue.showDialogue("welcome");
 }

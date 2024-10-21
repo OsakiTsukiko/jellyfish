@@ -13,7 +13,7 @@
 
     .dialogue-window {
         min-width: 50%;
-        max-width: 90%;
+        max-width: 70%;
         width: fit-content;
         height: fit-content;
         box-sizing: border-box;
@@ -93,5 +93,23 @@
     button {
         width: fit-content;
         height: 100%;
+    }
+}
+
+.wlc-dialogue {
+    display: flex;
+    gap: 10px;
+    box-sizing: border-box;
+    flex-direction: column;
+
+    .text {
+        color: var(--dialogue-window-lighter);
+    }
+
+    .btn-cont {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
     }
 }

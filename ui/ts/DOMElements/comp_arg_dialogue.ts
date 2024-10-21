@@ -49,4 +49,12 @@ export function init_comp_arg_dialogue() {
             pre_run_wrapper_btn,
         ]
     );
+
+    let welcome_dialogue = new Dialogue("welcome", document.getElementById("welcome-dialogue")!);
+    Dialogue.registerDialogue(welcome_dialogue);
+    Dialogue.hideDialogues();
+    let wlc_btn: HTMLButtonElement = document.getElementById("wlc-btn")! as HTMLButtonElement;
+    wlc_btn.onclick = () => {
+        Dialogue.hideDialogues();
+    }
 }
