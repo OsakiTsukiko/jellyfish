@@ -5,7 +5,7 @@ const builtin = @import("builtin");
 
 const webui = @import("webui");
 
-var exe_directory: fs.Dir = undefined;
+pub var exe_directory: fs.Dir = undefined;
 
 const ZIG_PATH_LINUX = "zig/linux";
 const ZIG_PATH_WINDOWS = "zig/windows";

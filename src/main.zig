@@ -3,6 +3,8 @@ const webui = @import("webui");
 
 const compiler = @import("./zig/compiler.zig");
 const save = @import("./save.zig");
+const file_handler = @import("./handler.zig");
+const RuntimeArchive = @import("scroll").RuntimeArchive;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -12,11 +14,17 @@ pub fn main() !void {
     compiler.setup(allocator);
     defer compiler.clean(allocator);
 
+    const archive_file = try compiler.exe_directory.openFile("ui.jellyfish", .{});
+    defer archive_file.close();
+    const archive = try RuntimeArchive.new(archive_file);
+    file_handler.init(allocator, archive);
+
     save.setup(allocator);
     
-    _ = webui.setDefaultRootFolder("ui");
+    // _ = webui.setDefaultRootFolder("ui");
     // TODO: CHANGE THIS TO AN ARCHIVE
     var win = webui.newWindow();
+    win.setFileHandler(file_handler.handler);
 
     _ = win.bind("runZig", compiler.runZigWEB);
     _ = win.bind("saveConfig", save.saveConfigWEB);

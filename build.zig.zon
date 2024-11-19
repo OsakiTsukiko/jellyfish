@@ -6,6 +6,10 @@
             .url = "https://github.com/webui-dev/zig-webui/archive/main.tar.gz",
             .hash = "1220ecd4fd7d9240965aa1bb28822ebeb7c3f6188adeea04da1781fbce9ebe3de050",
         },
+        .scroll = .{
+            .url = "https://github.com/OsakiTsukiko/scroll/archive/main.tar.gz",
+            .hash = "122097e628c25d145a63969227a0a83987f519b8bb12233d1d10b8746d4b2b74a75d",
+        },
     },
     .paths = .{
         "build.zig",
