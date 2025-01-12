@@ -55,6 +55,8 @@ SOON
   - [X] Linux
   - [ ] Windows
   - [ ] MacOS
+- [X] Package:
+  - [X] Indexed Archive (Scroll)
 - [ ] Quality Of Life Impv.
   - [ ] Disable CTRL + S 
 
