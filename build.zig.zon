@@ -2,13 +2,13 @@
     .name = "jellyfish",
     .version = "0.0.0",
     .dependencies = .{
-        .@"zig-webui" = .{
-            .url = "https://github.com/webui-dev/zig-webui/archive/main.tar.gz",
-            .hash = "1220ecd4fd7d9240965aa1bb28822ebeb7c3f6188adeea04da1781fbce9ebe3de050",
-        },
         .scroll = .{
             .url = "https://github.com/OsakiTsukiko/scroll/archive/main.tar.gz",
-            .hash = "122097e628c25d145a63969227a0a83987f519b8bb12233d1d10b8746d4b2b74a75d",
+            .hash = "12206d6c412fee32b373623013ee13e76603edd65db1acad1f2d49cf74525c21bbfe",
+        },
+        .@"zig-webui" = .{
+            .url = "https://github.com/webui-dev/zig-webui/archive/2.5.0-beta.2.tar.gz",
+            .hash = "1220f8bc2da33fe1d85d484dc10b80fcba31b3195b40ed820a8c99d7bc5c37ab81d3",
         },
     },
     .paths = .{

@@ -11,12 +11,12 @@ const ZIG_PATH_LINUX = "zig/linux";
 const ZIG_PATH_WINDOWS = "zig/windows";
 const ZIG_PATH_MACOS = "zig/macos";
 
-const BUILD_DIRECTORY= "temp_build";
+const BUILD_DIRECTORY = "temp_build";
 const BUILD_FILE = "main.zig";
 
 var local_allocator: std.mem.Allocator = undefined;
 var compiler_dir: fs.Dir = undefined;
-var compiler_path: []const u8 = undefined; 
+var compiler_path: []const u8 = undefined;
 // TODO: check if this needs to be ?[]const u8
 
 pub fn setup(allocator: std.mem.Allocator) void {
@@ -25,9 +25,7 @@ pub fn setup(allocator: std.mem.Allocator) void {
     const exe_dir_path = fs.selfExeDirPathAlloc(allocator) catch unreachable; // should be fine?
     defer allocator.free(exe_dir_path);
 
-    const exe_dir = fs.openDirAbsolute(
-        exe_dir_path, .{.iterate = true}
-    ) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
+    const exe_dir = fs.openDirAbsolute(exe_dir_path, .{ .iterate = true }) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
     exe_directory = exe_dir;
 
     switch (builtin.os.tag) {
@@ -48,14 +46,14 @@ pub fn setup(allocator: std.mem.Allocator) void {
         .windows => {
             // TODO: SUPPORT WINDOWS
             unreachable;
-        },  
+        },
         else => @compileError("Unsupported OS"),
     }
 }
 
 pub fn clean(allocator: std.mem.Allocator) void {
     allocator.free(compiler_path);
-} 
+}
 
 // return must be freed
 fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD ERROR RETURN
@@ -87,10 +85,7 @@ fn loadZig(allocator: std.mem.Allocator, code: []const u8) []u8 { // TODO: ADD E
     _ = build_file.writeAll(code) catch unreachable; // TODO: maybe handle error?
     build_file.close();
 
-    const file_path = build_dir.realpathAlloc(
-        allocator, 
-        BUILD_FILE
-    ) catch unreachable; // TODO: HANDLE?
+    const file_path = build_dir.realpathAlloc(allocator, BUILD_FILE) catch unreachable; // TODO: HANDLE?
 
     return file_path;
 }
@@ -109,11 +104,7 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
             // now. (could also bundle st as it is under mit)
 
             // const command = std.fmt.bufPrintZ(buf: []u8, comptime fmt: []const u8, args: anytype)
-            const command = std.fmt.allocPrintZ(
-                allocator, 
-                "({s} {s} run {s} {s};read -p 'Press [ENTER] to close...')",
-                .{pre_run_wrapper, comp_path, file_path, comp_arg}
-            ) catch unreachable;
+            const command = std.fmt.allocPrintZ(allocator, "({s} {s} run {s} {s};read -p 'Press [ENTER] to close...')", .{ pre_run_wrapper, comp_path, file_path, comp_arg }) catch unreachable;
             defer allocator.free(command);
 
             var proc = process.Child.init(
@@ -134,7 +125,7 @@ fn runZig(allocator: std.mem.Allocator, comp_path: []const u8, file_path: []cons
         .windows => {
             // TODO: SUPPORT WINDOWS
             unreachable;
-        },  
+        },
         else => @compileError("Unsupported OS"),
     }
 }
@@ -146,7 +137,7 @@ fn cleanZig() void {
     };
 }
 
-pub fn runZigWEB(event: webui.Event) void {
+pub fn runZigWEB(event: *webui.Event) void {
     const allocator = local_allocator;
     const code = event.getStringAt(0);
     const comp_arg = event.getStringAt(1);

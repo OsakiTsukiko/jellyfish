@@ -13,10 +13,8 @@ pub fn saveData(allocator: std.mem.Allocator, filename: []const u8, data: []cons
     const exe_dir_path = fs.selfExeDirPathAlloc(allocator) catch unreachable; // should be fine?
     defer allocator.free(exe_dir_path);
 
-    const exe_dir = fs.openDirAbsolute(
-        exe_dir_path, .{.iterate = true}
-    ) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
-    
+    const exe_dir = fs.openDirAbsolute(exe_dir_path, .{ .iterate = true }) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
+
     std.debug.print("FILE:: {s}\n", .{filename});
 
     const file = exe_dir.createFile(
@@ -33,24 +31,21 @@ pub fn loadData(allocator: std.mem.Allocator, filename: []const u8) ?[]u8 {
     const exe_dir_path = fs.selfExeDirPathAlloc(allocator) catch unreachable; // should be fine?
     defer allocator.free(exe_dir_path);
 
-    const exe_dir = fs.openDirAbsolute(
-        exe_dir_path, .{.iterate = true}
-    ) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
-    
+    const exe_dir = fs.openDirAbsolute(exe_dir_path, .{ .iterate = true }) catch unreachable; // TODO: HANDLE ERRORS (QUIT)
+
     const file = exe_dir.openFile(
         filename,
-        .{ },
+        .{},
     ) catch {
         return null;
     };
     defer file.close();
 
-
     const bytes_read = file.readToEndAlloc(allocator, 15360) catch unreachable;
     return bytes_read;
 }
 
-pub fn loadConfigWEB(e: webui.Event) void {
+pub fn loadConfigWEB(e: *webui.Event) void {
     const allocator = local_allocator;
     const filename = e.getStringAt(0);
     const data = loadData(allocator, filename);
@@ -66,7 +61,7 @@ pub fn loadConfigWEB(e: webui.Event) void {
     }
 }
 
-pub fn saveConfigWEB(e: webui.Event) void {
+pub fn saveConfigWEB(e: *webui.Event) void {
     const allocator = local_allocator;
     const filename = e.getStringAt(0);
     const data = e.getStringAt(1);
